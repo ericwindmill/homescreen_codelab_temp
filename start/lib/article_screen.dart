@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homescreen_widgets/news_data.dart';
 
+/// ArticleScreen is the screen that shows the article details.
 class ArticleScreen extends StatefulWidget {
   final NewsArticle article;
 
@@ -19,8 +20,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.article.title!),
-      ),
+          title: Text(widget.article.title!),
+          titleTextStyle: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -37,14 +39,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.article.image != null)
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Image.asset('assets/images/${widget.article.image}'),
-                  ),
-                ),
-              const SizedBox(height: 10.0),
               Text(
                 widget.article.description!,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -73,6 +67,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
+/// LineChartPainter creates a custom line chart.
 class LineChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

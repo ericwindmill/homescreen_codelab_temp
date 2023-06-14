@@ -2,13 +2,12 @@
 //  NewsWidgets.swift
 //  NewsWidgets
 //
-//  Created by Leigha Jarett on 12/13/22.
 //
 
 import WidgetKit
 import SwiftUI
 
-// TimelineProvider has three methods
+// TimelineProvider has three methods.
 struct Provider: TimelineProvider {
 
 // Placeholder is used as a placholder when the widget is first displayed
@@ -24,7 +23,8 @@ struct Provider: TimelineProvider {
         entry = placeholder(in: context)
       }
       else{
-        //      Get the data from the user defaults to display
+        //  Get the data from the user defaults to display
+        // TO DO: Replace with your App Group ID,
         let userDefaults = UserDefaults(suiteName: "group.leighawidget")
         let title = userDefaults?.string(forKey: "headline_title") ?? "No Title Set"
         let description = userDefaults?.string(forKey: "headline_description") ?? "No Description Set"
@@ -34,11 +34,11 @@ struct Provider: TimelineProvider {
         completion(entry)
     }
 
-//    getTimeline is called for the current and optionally future times to update the widget
+    // getTimeline is called for the current and optionally future times to update the widget
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-//      This just uses the snapshot function we defined earlier
+      // This just uses the snapshot function we defined earlier
       getSnapshot(in: context) { (entry) in
-// atEnd policy tells widgetkit to request a new entry after the date has passed
+        // atEnd policy tells widgetkit to request a new entry after the date has passed
         let timeline = Timeline(entries: [entry], policy: .atEnd)
                   completion(timeline)
               }
@@ -95,6 +95,7 @@ struct NewsWidgets: Widget {
     }
 }
 
+// Can use this code to use SwiftUI previews.
 //struct NewsWidgets_Previews: PreviewProvider {
 //    static var previews: some View {
 //        NewsWidgetsEntryView(entry: NewsArticleEntry(date: Date(), title: "Preview Title", description: "Preview description", filename: "No Screenshot available"))

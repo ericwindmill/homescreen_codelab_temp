@@ -1,52 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_widget/home_widget.dart';
 import 'package:homescreen_widgets/news_data.dart';
 
-// This should be removed when HomeWidget package is updated
-extension HomeWidgetRenderExtension on HomeWidget {
-  /// Generate a screenshot based on the build context of a widget.
-  /// This method renders the widget to an image (png) file with the provided filename.
-  /// The png file is saved to the App Group container and the full path is returned as a string.
-  /// The filename is optionally saved to UserDefaults using the provided key.
-  static Future<String?> renderFlutterWidget(
-    String appGroupId,
-    BuildContext context,
-    String filename,
-    String? key,
-  ) async {
-    // Get the render object for the widget
-    //   final RenderRepaintBoundary boundary =
-    //       context.findRenderObject() as RenderRepaintBoundary;
-    //
-    //   // Create a screenshot of the widget
-    //   final image = await boundary.toImage(
-    //       pixelRatio: MediaQuery.of(context).devicePixelRatio);
-    //   final byteData = await image.toByteData(format: ImageByteFormat.png);
-    //
-    //   // Save the screenshot to a file in the app group container
-    //   // final PathProviderFoundation provider = PathProviderFoundation();
-    //   try {
-    //     final String? directory = await provider.getContainerPath(
-    //       appGroupIdentifier: appGroupId,
-    //     );
-    //     final String path = '$directory/$filename.png';
-    //     final File file = File(path);
-    //     await file.writeAsBytes(byteData!.buffer.asUint8List());
-    //
-    //     // Save the filename to UserDefaults if a key was provided
-    //     if (key != null) {
-    //       _channel.invokeMethod<bool>('saveWidgetData', {
-    //         'id': key,
-    //         'data': '$filename.png',
-    //       });
-    //     }
-    //     return path;
-    //   } catch (e) {
-    //     throw Exception('Failed to save screenshot to app group container: $e');
-    //   }
-  }
-}
-
+/// ArticleScreen is the screen that shows the article details.
 class ArticleScreen extends StatefulWidget {
   final NewsArticle article;
 
@@ -60,27 +15,21 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticleScreenState extends State<ArticleScreen> {
-  final _globalKey = GlobalKey();
   String? imagePath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.article.title!),
-      ),
+          title: Text(widget.article.title!),
+          titleTextStyle: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          if (_globalKey.currentContext != null) {
-            // var path = await HomeWidget.renderFlutterWidget(
-            //   'group.leighawidget',
-            //   _globalKey.currentContext!,
-            //   "screenshot",
-            //   "filename",
-            // );
-            setState(() {
-              // imagePath = path;
-            });
-          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Updating home screen widget...'),
+            ),
+          );
         },
         label: const Text('Update Homescreen'),
       ),
@@ -90,14 +39,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.article.image != null)
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Image.asset('assets/images/${widget.article.image}'),
-                  ),
-                ),
-              const SizedBox(height: 10.0),
               Text(
                 widget.article.description!,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -107,7 +48,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
               const SizedBox(height: 20.0),
               Center(
                 child: RepaintBoundary(
-                  key: _globalKey,
                   child: CustomPaint(
                     painter: LineChartPainter(),
                     child: const SizedBox(
@@ -127,6 +67,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
+/// LineChartPainter creates a custom line chart.
 class LineChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

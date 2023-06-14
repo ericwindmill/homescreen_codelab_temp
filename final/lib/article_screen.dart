@@ -15,7 +15,6 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticleScreenState extends State<ArticleScreen> {
-  String? imagePath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

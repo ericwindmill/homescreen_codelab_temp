@@ -33,11 +33,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Updating home screen widget...'),
           ));
-          print(_globalKey);
-          print(_globalKey.currentContext);
           // New: add method to render LineChart() to an image.
           if (_globalKey.currentContext != null) {
-            print("I'm here");
             var path = await HomeWidget.renderFlutterWidget(
               const LineChart(),
               fileName: 'screenshot',
@@ -48,7 +45,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
             );
             setState(() {
               imagePath = path;
-              print('imagePath: $imagePath');
             });
           }
           updateHeadline(widget.article);

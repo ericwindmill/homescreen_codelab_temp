@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:home_widget/home_widget.dart';
+import 'package:homescreen_widgets/home_screen.dart';
 import 'package:homescreen_widgets/news_data.dart';
 
 /// ArticleScreen is the screen that shows the article details.
@@ -15,6 +17,10 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticleScreenState extends State<ArticleScreen> {
+  // New: add this GlobalKey
+  final _globalKey = GlobalKey();
+  String? imagePath;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +30,28 @@ class _ArticleScreenState extends State<ArticleScreen> {
               fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Updating home screen widget...'),
-            ),
-          );
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Updating home screen widget...'),
+          ));
+          print(_globalKey);
+          print(_globalKey.currentContext);
+          // New: add method to render LineChart() to an image.
+          if (_globalKey.currentContext != null) {
+            print("I'm here");
+            var path = await HomeWidget.renderFlutterWidget(
+              const LineChart(),
+              fileName: 'screenshot',
+              key: 'filename',
+              logicalSize: _globalKey.currentContext!.size,
+              pixelRatio:
+                  MediaQuery.of(_globalKey.currentContext!).devicePixelRatio,
+            );
+            setState(() {
+              imagePath = path;
+              print('imagePath: $imagePath');
+            });
+          }
+          updateHeadline(widget.article);
         },
         label: const Text('Update Homescreen'),
       ),
@@ -45,22 +68,29 @@ class _ArticleScreenState extends State<ArticleScreen> {
               const SizedBox(height: 20.0),
               Text(widget.article.articleText!),
               const SizedBox(height: 20.0),
-              Center(
-                child: RepaintBoundary(
-                  child: CustomPaint(
-                    painter: LineChartPainter(),
-                    child: const SizedBox(
-                      height: 200,
-                      width: 200,
-                    ),
-                  ),
-                ),
-              ),
+              Center(key: _globalKey, child: const LineChart()),
               const SizedBox(height: 20.0),
               Text(widget.article.articleText!),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LineChart extends StatelessWidget {
+  const LineChart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: LineChartPainter(),
+      child: const SizedBox(
+        height: 200,
+        width: 200,
       ),
     );
   }

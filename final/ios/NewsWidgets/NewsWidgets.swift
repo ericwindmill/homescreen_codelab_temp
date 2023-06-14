@@ -28,6 +28,7 @@ struct Provider: TimelineProvider {
         let userDefaults = UserDefaults(suiteName: "group.leighawidget")
         let title = userDefaults?.string(forKey: "headline_title") ?? "No Title Set"
         let description = userDefaults?.string(forKey: "headline_description") ?? "No Description Set"
+        // New: get fileName from key/value store 
         let filename = userDefaults?.string(forKey: "filename") ?? "No screenshot available"
         print(filename)
         entry = NewsArticleEntry(date: Date(), title: title, description: description, filename: filename,  displaySize: context.displaySize)
@@ -52,6 +53,7 @@ struct NewsArticleEntry: TimelineEntry {
     let date: Date
     let title: String
     let description:String
+    // New: add the filename and displaySize.
     let filename: String
     let displaySize: CGSize
 }
@@ -75,7 +77,7 @@ struct NewsWidgetsEntryView : View {
             }
             return bundle.bundleURL
         }
-
+   // New: create the ChartImage view
    var ChartImage: some View {
         if let uiImage = UIImage(contentsOfFile: entry.filename) {
             let image = Image(uiImage: uiImage)
@@ -92,6 +94,7 @@ struct NewsWidgetsEntryView : View {
     VStack {
         Text(entry.title).font(Font.custom("Chewy", size: 13))
         Text(entry.description).font(.system(size: 12)).padding(10)
+        // New: add the ChartImage to the NewsWidgetEntryView
         ChartImage
     }
   }

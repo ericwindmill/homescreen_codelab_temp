@@ -45,17 +45,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
               const SizedBox(height: 20.0),
               Text(widget.article.articleText!),
               const SizedBox(height: 20.0),
-              Center(
-                child: RepaintBoundary(
-                  child: CustomPaint(
-                    painter: LineChartPainter(),
-                    child: const SizedBox(
-                      height: 200,
-                      width: 200,
-                    ),
-                  ),
-                ),
-              ),
+              const Center(child: LineChart()),
               const SizedBox(height: 20.0),
               Text(widget.article.articleText!),
             ],
@@ -66,7 +56,24 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
-/// LineChartPainter creates a custom line chart.
+/// LineChart creates a custom line chart.
+class LineChart extends StatelessWidget {
+  const LineChart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: LineChartPainter(),
+      child: const SizedBox(
+        height: 200,
+        width: 200,
+      ),
+    );
+  }
+}
+
 class LineChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

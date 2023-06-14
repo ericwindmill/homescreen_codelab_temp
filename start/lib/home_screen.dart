@@ -14,13 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          useMaterial3: true,
-          appBarTheme: AppBarTheme(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          )),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
             title: const Text('Top Stories'),
             centerTitle: false,
@@ -50,29 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             );
           },
-        ),
-      ),
-      // child: Padding(
-      //   padding: const EdgeInsets.all(0.0),
-      //   child: Column(
-      //     children: [
-      //       const SizedBox(height: 30),
-      //       Container(
-      //         padding: const EdgeInsets.all(16.0),
-      //         decoration: BoxDecoration(
-      //           color: Theme.of(context).colorScheme.tertiaryContainer,
-      //         ),
-      //         child: Row(
-      //           children: [
-      //             Text(
-      //               'Top Stories',
-      //               textAlign: TextAlign.left,
-      //               style: Theme.of(context).textTheme.headlineLarge!,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      // const SizedBox(height: 25),
-    );
+        ));
   }
 }

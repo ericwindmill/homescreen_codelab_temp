@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          backgroundColor: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+              .primaryContainer,
         ),
         textTheme: const TextTheme(
           titleMedium: TextStyle(

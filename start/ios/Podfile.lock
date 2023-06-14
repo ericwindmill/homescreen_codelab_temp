@@ -2,8 +2,6 @@ PODS:
   - Flutter (1.0.0)
   - home_widget (0.0.1):
     - Flutter
-  - native_font (0.0.1):
-    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -13,8 +11,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
-  - native_font (from `.symlinks/plugins/native_font/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
 
 EXTERNAL SOURCES:
@@ -22,18 +19,15 @@ EXTERNAL SOURCES:
     :path: Flutter
   home_widget:
     :path: ".symlinks/plugins/home_widget/ios"
-  native_font:
-    :path: ".symlinks/plugins/native_font/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
-  native_font: d274afc2ad3dca462ab0355d0da442479c71e5e6
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
